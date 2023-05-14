@@ -1,10 +1,19 @@
-import { useFocusIfNeed } from 'focus-if-need/react'
-import { useRef, useState } from 'react'
+import { focusIfNeed, useFocus } from 'focus-if-need/react'
+import { useEffect, useState } from 'react'
 
 const Home = () => {
-  const ref = useRef<HTMLInputElement>(null)
   const [count, setCount] = useState(0)
-  useFocusIfNeed('main', ref)
+  const { ref } = useFocus<HTMLInputElement>('main')
+  // refs: https://hidde.blog/console-logging-the-focused-element-as-it-changes/
+  useEffect(() => {
+    const callback = () => {
+      console.log('focused: ', document.activeElement)
+    }
+    document.addEventListener('focusin', callback, true)
+    return () => {
+      document.removeEventListener('focusin', callback, true)
+    }
+  }, [])
   return (
     <div>
       <input ref={ref} placeholder="placeholder" />
@@ -14,6 +23,16 @@ const Home = () => {
       >
         click {count}
       </button>
+      <div
+        tabIndex={0}
+        className="btn-square btn"
+        onClick={() => {
+          console.log(focusIfNeed.history.stacks)
+          focusIfNeed.history.go(-1)
+        }}
+      >
+        click {count}
+      </div>
     </div>
   )
 }

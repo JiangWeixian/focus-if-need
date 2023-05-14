@@ -1,14 +1,16 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 import { focusIfNeed } from './index'
 
-import type { RefObject } from 'react'
-
-export const useFocusIfNeed = (id: string, element: RefObject<any>) => {
+export const useFocus = <T = any>(id: string) => {
+  const ref = useRef<T>(null)
   useEffect(() => {
-    focusIfNeed.focus(id, element)
+    focusIfNeed.focus(id, ref)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
+  return {
+    ref,
+  }
 }
 
 export { focusIfNeed } from './index'

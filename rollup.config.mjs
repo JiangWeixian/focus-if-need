@@ -45,6 +45,9 @@ export default defineConfig([
       ce(),
       size(),
     ],
+    watch: {
+      exclude: ['./package.json'],
+    },
     output: [
       { dir: 'dist', entryFileNames: '[name].cjs', format: 'cjs' },
       { dir: 'dist', entryFileNames: '[name].mjs', format: 'es' },

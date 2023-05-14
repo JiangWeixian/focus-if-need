@@ -7,5 +7,5 @@
 import { createFocusIfNeed } from '../create'
 
 export { createFocusIfNeed } from '../create'
-export type { FocusIfNeedHookMap } from '../create'
+export type { FocusIfNeedHookMap } from '../types'
 export const focusIfNeed = createFocusIfNeed()

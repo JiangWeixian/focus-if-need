@@ -3,17 +3,15 @@ import { createHooks } from 'hookable'
 import { FocusHistory } from './history'
 
 import type { RefObject } from 'react'
-
-interface FocusCallback {
-  (): void
-}
-
-export interface FocusIfNeedHookMap extends Record<string, FocusCallback> {}
+import type { FocusCallback, FocusIfNeedHookMap } from './types'
 
 export const createFocusIfNeed = () => {
   const hooks = createHooks<FocusIfNeedHookMap>()
-  const history = new FocusHistory()
+  const history = FocusHistory.create({ hooks })
   const focus = (id: string, element: RefObject<any>) => {
+    /**
+     * @description Focus element if avaliable
+     */
     const callback: FocusCallback = () => {
       let timer: NodeJS.Timer | null
       timer = setInterval(() => {
@@ -22,15 +20,24 @@ export const createFocusIfNeed = () => {
           // @ts-expect-error -- works fine
           clearInterval(timer)
           timer = null
-          history.stacks.push(id)
+          history.push(id)
         }
       }, 100)
+      /**
+       * @description Clear focus interval timer
+       */
+      const clear = () => {
+        // @ts-expect-error -- works fine
+        clearInterval(timer)
+        timer = null
+      }
+      return clear
     }
-    callback()
+    const clear = callback()
     hooks.hook(id, callback)
+    return clear
   }
   return {
-    hooks,
     history,
     focus,
   }
