@@ -1,23 +1,48 @@
-![focus-if-need](https://realme-ten.vercel.app/api/v1/banner?colorA=7c2d12&colorB=c2410c&textColor=fb923c&title=focus-if-need&subtitle=NEO&desc=build%20lib%20with%20condition%20exports)
+[![npm](https://img.shields.io/npm/v/focus-if-need)](https://github.com/JW/focus-if-need) [![GitHub](https://img.shields.io/npm/l/focus-if-need)](https://github.com/JW/focus-if-need) 
 
-[![npm](https://img.shields.io/npm/v/focus-if-need)](https://github.com/JW/focus-if-need) [![GitHub](https://img.shields.io/npm/l/focus-if-need)](https://github.com/JW/focus-if-need) [![stackblitz](https://img.shields.io/badge/%E2%9A%A1%EF%B8%8Fstackblitz-online-blue)](https://stackblitz.com/github/JW/focus-if-need)
+Inspired by [focus-lock](https://github.com/theKashey/focus-lock)
 
-[Edit on StackBlitz ⚡️](https://stackblitz.com/github/JW/focus-if-need)
+## motivation
 
-## features
+Recently I create web-ext contain lots of input elements(or other focusable element). I want to automatic focus available element inside opened dialog/popover/modal. And when I close those elements, focus another element inside page.
 
-- ⚡ Fast - Build with [`rollup-plugin-esbuild`](https://github.com/egoist/rollup-plugin-esbuild)
-- 📊 Stats - output bag bundlesize
-- 📦 Exclude `dependencies` and `peerDependencies`, and bundle `devDependencies`
-- 💪 Typescript - type safe, support alias path with [`ttypescript`](https://github.com/cevek/ttypescript/tree/master/packages/ttypescript)
-- 🃏 Auto setup package condition exports with [`rollup-plugin-condition-exports`](https://github.com/JiangWeixian/rollup-plugin-condition-exports/tree/master)
-- ✅ Vitest
-- 📦 Publish with `changesets`
+This package for: 
+
+1. switch **focus** between different elements functionally; 
+2. automatic focus element if available;
 
 ## install
 
 ```console
 pnpm i focus-if-need
+```
+
+## usage
+
+### `react`
+
+```tsx
+import { useFocus } from 'focus-if-need/react'
+
+const { ref } = useFocus<HTMLInputElement>('main')
+<input ref={ref} placeholder="placeholder" />
+```
+
+functional focus any element:
+
+```tsx
+import { useFocus, focusIfNeed } from 'focus-if-need/react'
+
+// focus input element which register by id='main'
+focusIfNeed.focus('main')
+```
+
+Or focus last focused element
+
+```tsx
+import { useFocus, focusIfNeed } from 'focus-if-need/react'
+
+focusIfNeed.go(-1)
 ```
 
 ## development
