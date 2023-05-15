@@ -31,7 +31,7 @@ const Home = () => {
           focusIfNeed.history.go(-1)
         }}
       >
-        click {count}
+        Last focus
       </div>
     </div>
   )

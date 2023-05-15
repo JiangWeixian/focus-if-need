@@ -26,16 +26,24 @@ export const createFocusIfNeed = () => {
       /**
        * @description Clear focus interval timer
        */
-      const clear = () => {
+      const abort = () => {
         // @ts-expect-error -- works fine
         clearInterval(timer)
         timer = null
       }
-      return clear
+      return { abort }
     }
-    const clear = callback()
-    hooks.hook(id, callback)
-    return clear
+    const { abort } = callback()
+    // @ts-expect-error -- ignore it?
+    const unregister = hooks.hook(id, callback)
+    /**
+     * @description Clear focus interval timer; Unregister global hook
+     */
+    const clear = () => {
+      abort()
+      unregister()
+    }
+    return { clear }
   }
   return {
     history,

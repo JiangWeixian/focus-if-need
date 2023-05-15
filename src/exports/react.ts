@@ -5,7 +5,10 @@ import { focusIfNeed } from './index'
 export const useFocus = <T = any>(id: string) => {
   const ref = useRef<T>(null)
   useEffect(() => {
-    focusIfNeed.focus(id, ref)
+    const { clear } = focusIfNeed.focus(id, ref)
+    return () => {
+      clear()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
   return {

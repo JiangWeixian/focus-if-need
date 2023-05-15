@@ -1,4 +1,4 @@
 export interface FocusCallback {
-  (): void
+  (): { abort: () => void }
 }
 export interface FocusIfNeedHookMap extends Record<string, FocusCallback> {}
