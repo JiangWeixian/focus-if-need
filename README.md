@@ -34,7 +34,8 @@ functional focus any element:
 import { useFocus, focusIfNeed } from 'focus-if-need/react'
 
 // focus input element which register by id='main'
-focusIfNeed.focus('main')
+const { history } = focusIfNeed
+history.focus('main')
 ```
 
 Or focus last focused element
@@ -42,7 +43,18 @@ Or focus last focused element
 ```tsx
 import { useFocus, focusIfNeed } from 'focus-if-need/react'
 
-focusIfNeed.go(-1)
+const { history } = focusIfNeed
+history.go(-1)
+```
+
+### `manually`
+
+```tsx
+import { createFocusIfNeed } from 'focus-if-need'
+
+const focusIfNeed = createFocusIfNeed()
+// focus element
+focusIfNeed.focus(id, elementRef)
 ```
 
 ## development
