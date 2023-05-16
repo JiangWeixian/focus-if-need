@@ -14,7 +14,7 @@ export const createFocusIfNeed = () => {
      */
     const callback: FocusCallback = () => {
       let timer: NodeJS.Timer | null
-      timer = setInterval(() => {
+      const job = () => {
         if (element.current) {
           element.current.focus()
           // @ts-expect-error -- works fine
@@ -22,7 +22,9 @@ export const createFocusIfNeed = () => {
           timer = null
           history.push(id)
         }
-      }, 100)
+      }
+      job()
+      timer = setInterval(job, 60)
       /**
        * @description Clear focus interval timer
        */
