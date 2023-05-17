@@ -1,9 +1,8 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`react > useFocus should work 1`] = `
+exports[`hooks > useFocus should work 1`] = `
 <div>
   <input
-    onFocus={[Function]}
     placeholder="placeholder"
   />
 </div>
