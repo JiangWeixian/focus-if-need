@@ -17,7 +17,7 @@ const Home = () => {
   return (
     <div>
       <input
-        onFocus={(e) => {
+        onFocus={(_e) => {
           console.log('Focused on input')
         }}
         ref={ref}
