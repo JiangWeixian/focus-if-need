@@ -16,7 +16,13 @@ const Home = () => {
   }, [])
   return (
     <div>
-      <input ref={ref} placeholder="placeholder" />
+      <input
+        onFocus={(e) => {
+          console.log('Focused on input')
+        }}
+        ref={ref}
+        placeholder="placeholder"
+      />
       <button
         className="btn-square btn"
         onClick={() => setCount(prev => prev + 1)}

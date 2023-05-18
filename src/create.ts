@@ -14,19 +14,23 @@ export const createFocusIfNeed = () => {
      */
     const callback: FocusCallback = () => {
       let timer: NodeJS.Timer | null
-      timer = setInterval(() => {
+      const job = () => {
+        // If element is already focused, abort
+        if (typeof document !== 'undefined' && document.activeElement === element.current) {
+          abort()
+        }
         if (element.current) {
           element.current.focus()
-          // @ts-expect-error -- works fine
-          clearInterval(timer)
-          timer = null
+          abort()
           history.push(id)
         }
-      }, 100)
+      }
+      job()
+      timer = setInterval(job, 60)
       /**
        * @description Clear focus interval timer
        */
-      const abort = () => {
+      function abort() {
         // @ts-expect-error -- works fine
         clearInterval(timer)
         timer = null
